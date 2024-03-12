@@ -1,0 +1,28 @@
+---
+name: Terraform module check
+on:
+    pull_request:
+
+jobs:
+    validate:
+        name: Validate Terraform
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+    
+            - name: Install Terraform
+              uses: hashicorp/setup-terraform@v2
+            
+            - name: Terraform Format Check
+              run: terraform -chdir=test fmt -check 
+        
+            - name: Terraform Init
+              run: terraform -chdir=test init -backend=false
+        
+            - name: Terraform Validate
+              run: terraform -chdir=test validate
+
+            - name: Terraform Plan
+              run: terraform -chdir=test plan
