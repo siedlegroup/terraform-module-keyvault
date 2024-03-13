@@ -1,7 +1,7 @@
 locals {
   private_dns_zone_id = "/subscriptions/${var.subscription_id}/resourceGroups/${var.dns_zone_resource_group}/providers/Microsoft.Network/privateDnsZones/${var.private_dns_zone_name}"
   access_policies = [
-    for p in var.access_policies : merge({
+    for p in jsondecode(var.access_policies) : merge({
       azure_ad_group_names             = []
       object_ids                       = []
       azure_ad_user_principal_names    = []

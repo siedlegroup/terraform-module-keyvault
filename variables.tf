@@ -81,52 +81,9 @@ variable "soft_delete_retention_days" {
 }
 
 variable "access_policies" {
-  description = <<EOF
-  List of objects containing AD objects for assigning access policies for the Key Vault: 
-    'azure_ad_user_principal_names' = list of individual AD users
-    'azure_ad_group_names' = list of AD groups
-    'azure_ad_service_principle_names' = list of AD service principals
-  EOF
-  type = list(object({
-    azure_ad_user_principal_names    = list(string)
-    key_permissions                  = list(string)
-    secret_permissions               = list(string)
-    certificate_permissions          = list(string)
-    storage_permissions              = list(string)
-    azure_ad_group_names             = list(string)
-    azure_ad_service_principal_names = list(string)
-  }))
-  default = [
-    {
-      azure_ad_user_principal_names    = []
-      key_permissions                  = []
-      secret_permissions               = []
-      certificate_permissions          = []
-      storage_permissions              = []
-      azure_ad_group_names             = []
-      azure_ad_service_principal_names = []
-    },
-    {
-      azure_ad_group_names             = []
-      key_permissions                  = []
-      secret_permissions               = []
-      certificate_permissions          = []
-      storage_permissions              = []
-      azure_ad_user_principal_names    = []
-      azure_ad_service_principal_names = []
-    },
-    {
-      azure_ad_service_principal_names = []
-      key_permissions                  = []
-      secret_permissions               = []
-      certificate_permissions          = []
-      storage_permissions              = []
-      azure_ad_user_principal_names    = []
-      azure_ad_group_names             = []
-    }
-  ]
+  description = "List of access policies for the Key Vault."
+  default     = []
 }
-
 
 variable "public_network_access_enabled" {
   type        = bool
