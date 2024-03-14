@@ -47,7 +47,7 @@ resource "azurerm_key_vault" "main" {
   }
 
   dynamic "access_policy" {
-    for_each = local.combined_access_policies
+    for_each = [ for i in local.combined_access_policies : i if i != "" && i.object_id != local.service_principal_object_id]
     content {
       certificate_permissions = access_policy.value.certificate_permissions
       key_permissions         = access_policy.value.key_permissions
