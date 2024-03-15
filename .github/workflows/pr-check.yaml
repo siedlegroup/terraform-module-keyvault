@@ -1,5 +1,5 @@
 ---
-  name: Terraform module check
+  name: tf-module-check
   on:
       pull_request:
   
@@ -35,4 +35,11 @@
   
               - name: Terraform Plan
                 run: terraform -chdir=test plan
+
+              - name: Test with Checkov
+                id: checkov
+                uses: bridgecrewio/checkov-action@master
+                with:
+                  directory: ../.
+                  framework: terraform 
   
