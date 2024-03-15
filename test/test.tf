@@ -17,6 +17,8 @@ provider "azurerm" {
   features {}
 }
 
+provider "azuread" {}
+
 locals {
   environment                   = "dev1"
   subscription_id               = "aaaaaaaa-bbbb-cccc-dddd-111111111111"
