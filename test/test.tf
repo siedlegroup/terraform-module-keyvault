@@ -46,13 +46,5 @@ module "keyvault" {
   dns_zone_resource_group       = "sgc-dns"
   private_dns_zone_name         = "cloud.siedle.com"
   key_vault_sku_pricing_tier    = "standard"
-  access_policies = jsonencode([
-    {
-      azure_ad_group_names    = ["SDE-Azure-SUS-DevOps"]
-      key_permissions         = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify", "GetRotationPolicy", "SetRotationPolicy"]
-      secret_permissions      = ["Get", "List", "Delete"]
-      certificate_permissions = ["Get", "Import", "List", "Delete"]
-      storage_permissions     = ["Backup", "Get", "List", "Recover"]
-    }
-  ])
+  access_policies               = jsonencode([])
 }
