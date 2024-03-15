@@ -79,15 +79,4 @@ locals {
       storage_permissions     = distinct(flatten(v[*].storage_permissions))
     }
   ]
-
-  service_principal_object_id = data.azurerm_client_config.current.object_id
-
-  self_permissions = {
-    object_id               = local.service_principal_object_id
-    tenant_id               = data.azurerm_client_config.current.tenant_id
-    key_permissions         = ["Create", "Delete", "Get", "Backup", "Decrypt", "Encrypt", "Import", "List", "Purge", "Recover", "Restore", "Sign", "Update", "Verify"]
-    secret_permissions      = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"]
-    certificate_permissions = ["Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"]
-    storage_permissions     = ["Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey", "Restore", "Set", "SetSAS", "Update"]
-  }
 }
