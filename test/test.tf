@@ -5,6 +5,7 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.89.0, < 4.0.0"
     }
+    # add azuread or other providers as required for testing purposes
     azuread = {
       source  = "hashicorp/azuread"
       version = "~> 2.47.0"
