@@ -34,7 +34,8 @@
                 run: terraform -chdir=test validate
   
               - name: Terraform Plan
-                run: terraform -chdir=test plan
+                run: terraform -chdir=test plan -input=false -out=tfplan
+                id: plan
 
               - name: Test with Checkov
                 id: checkov
