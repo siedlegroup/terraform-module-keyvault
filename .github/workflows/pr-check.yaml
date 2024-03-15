@@ -10,6 +10,7 @@
           permissions:
             id-token: write
             contents: read
+            pull-requests: write
           env:
             ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
             ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
@@ -23,7 +24,14 @@
       
               - name: Install Terraform
                 uses: hashicorp/setup-terraform@v2
-              
+
+              - name: Code Security Check
+                id: checkov
+                uses: bridgecrewio/checkov-action@master
+                with:
+                  directory: ../.
+                  framework: terraform 
+  
               - name: Terraform Format Check
                 run: terraform -chdir=test fmt -check 
           
@@ -37,15 +45,8 @@
                 run: terraform -chdir=test plan -input=false -out=tfplan
                 id: plan
 
-              - name: Test with Checkov
-                id: checkov
-                uses: bridgecrewio/checkov-action@master
-                with:
-                  directory: ../.
-                  framework: terraform 
-  
               - name: Show full Plan for Review
-                run: terraform show tfplan
+                run: terraform -chdir=test show tfplan
           
               - name: Update Pull Request
                 if: (success() || failure()) && github.event_name == 'pull_request'
