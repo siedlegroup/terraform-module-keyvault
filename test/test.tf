@@ -15,9 +15,7 @@ terraform {
 provider "azurerm" {
   skip_provider_registration = true
   features {}
-  use_msi         = true
-  subscription_id = "fae73dff-ca04-4eed-905f-5d064a6f25b5"
-  tenant_id       = "2021092b-a5fe-4a9a-8b16-1876d8d5ccdf"
+  use_msi = true
 }
 
 provider "azuread" {}
@@ -48,5 +46,13 @@ module "keyvault" {
   dns_zone_resource_group       = "sgc-dns"
   private_dns_zone_name         = "cloud.siedle.com"
   key_vault_sku_pricing_tier    = "standard"
-  access_policies               = []
+  access_policies = [
+    {
+      azure_ad_group_names    = ["SDE-Azure-SUS-DevOps"]
+      key_permissions         = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify", "GetRotationPolicy", "SetRotationPolicy"]
+      secret_permissions      = ["Get", "List", "Delete"]
+      certificate_permissions = ["Get", "Import", "List", "Delete"]
+      storage_permissions     = ["Backup", "Get", "List", "Recover"]
+    }
+  ]
 }
