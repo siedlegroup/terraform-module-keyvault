@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.89.0, < 4.0.0"
+      version = "~> 3.96.0, < 4.0.0"
     }
     azuread = {
       source  = "hashicorp/azuread"
@@ -15,7 +15,7 @@ terraform {
 provider "azurerm" {
   skip_provider_registration = true
   features {}
-  use_msi         = false
+  use_msi         = true
   subscription_id = "fae73dff-ca04-4eed-905f-5d064a6f25b5"
   tenant_id       = "2021092b-a5fe-4a9a-8b16-1876d8d5ccdf"
 }
@@ -26,7 +26,7 @@ locals {
   environment                   = "dev1"
   subscription_id               = "fae73dff-ca04-4eed-905f-5d064a6f25b5"
   postfix                       = "sgc-project-test-germanywestcentral"
-  resource_group_name           = "rg-sgc-project-dev-germanywestcentral"
+  resource_group_name           = "rg-sgc-project-test-germanywestcentral"
   dns_zone_resource_group       = "rg-sgc-project-shared-germanywestcentral"
   dns_region                    = "de"
   private_dns_zone_name         = "project.cloud.siedle.com"
