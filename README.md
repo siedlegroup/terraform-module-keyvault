@@ -9,9 +9,9 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | 2.47.0 |
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.95.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.6.0 |
+| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | n/a |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
@@ -38,7 +38,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_access_policies"></a> [access\_policies](#input\_access\_policies) | List of objects containing AD objects for assigning access policies for the Key Vault: <br>    'azure\_ad\_user\_principal\_names' = list of individual AD users<br>    'azure\_ad\_group\_names' = list of AD groups<br>    'azure\_ad\_service\_principle\_names' = list of AD service principals | <pre>list(object({<br>    azure_ad_user_principal_names    = list(string)<br>    key_permissions                  = list(string)<br>    secret_permissions               = list(string)<br>    certificate_permissions          = list(string)<br>    storage_permissions              = list(string)<br>    azure_ad_group_names             = list(string)<br>    azure_ad_service_principal_names = list(string)<br>  }))</pre> | <pre>[<br>  {<br>    "azure_ad_group_names": [],<br>    "azure_ad_service_principal_names": [],<br>    "azure_ad_user_principal_names": [],<br>    "certificate_permissions": [],<br>    "key_permissions": [],<br>    "secret_permissions": [],<br>    "storage_permissions": []<br>  },<br>  {<br>    "azure_ad_group_names": [],<br>    "azure_ad_service_principal_names": [],<br>    "azure_ad_user_principal_names": [],<br>    "certificate_permissions": [],<br>    "key_permissions": [],<br>    "secret_permissions": [],<br>    "storage_permissions": []<br>  },<br>  {<br>    "azure_ad_group_names": [],<br>    "azure_ad_service_principal_names": [],<br>    "azure_ad_user_principal_names": [],<br>    "certificate_permissions": [],<br>    "key_permissions": [],<br>    "secret_permissions": [],<br>    "storage_permissions": []<br>  }<br>]</pre> | no |
+| <a name="input_access_policies"></a> [access\_policies](#input\_access\_policies) | List of access policies for the Key Vault. | `list` | `[]` | no |
 | <a name="input_certificate_contacts"></a> [certificate\_contacts](#input\_certificate\_contacts) | Contact information to send notifications triggered by certificate lifetime events | <pre>list(object({<br>    email = string<br>    name  = optional(string)<br>    phone = optional(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_dns_region"></a> [dns\_region](#input\_dns\_region) | The region part of the DNS name, example: resources in locations germanywestcentral and germanynort will have a DNS name with .de. | `string` | n/a | yes |
 | <a name="input_dns_zone_resource_group"></a> [dns\_zone\_resource\_group](#input\_dns\_zone\_resource\_group) | Resource group name of DNS zone to create record in (usually in shared env) | `string` | n/a | yes |
