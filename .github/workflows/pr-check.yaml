@@ -1,34 +1,38 @@
 ---
-name: Terraform module check
-on:
-    pull_request:
-
-jobs:
-    validate:
-        name: Validate Terraform
-        runs-on: ubuntu-latest
-        env:
-          ARM_CLIENT_ID: "${{ vars.AZURE_CLIENT_ID }}"
-          ARM_SUBSCRIPTION_ID: "${{ vars.AZURE_SUBSCRIPTION_ID }}"
-          ARM_TENANT_ID: "${{ vars.AZURE_TENANT_ID }}"
-          ARM_USE_AZUREAD: true
-          ARM_USE_OIDC: true
-        
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v4
-    
-            - name: Install Terraform
-              uses: hashicorp/setup-terraform@v2
-            
-            - name: Terraform Format Check
-              run: terraform -chdir=test fmt -check 
-        
-            - name: Terraform Init
-              run: terraform -chdir=test init -backend=false
-        
-            - name: Terraform Validate
-              run: terraform -chdir=test validate
-
-            - name: Terraform Plan
-              run: terraform -chdir=test plan
+  name: Terraform module check
+  on:
+      pull_request:
+  
+  jobs:
+      validate:
+          name: Validate Terraform
+          runs-on: ubuntu-latest
+          permissions:
+            id-token: write
+            contents: read
+          env:
+            ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+            ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+            ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+            ARM_USE_AZUREAD: true
+            ARM_USE_OIDC: true
+          
+          steps:
+              - name: Checkout Code
+                uses: actions/checkout@v4
+      
+              - name: Install Terraform
+                uses: hashicorp/setup-terraform@v2
+              
+              - name: Terraform Format Check
+                run: terraform -chdir=test fmt -check 
+          
+              - name: Terraform Init
+                run: terraform -chdir=test init -backend=false
+          
+              - name: Terraform Validate
+                run: terraform -chdir=test validate
+  
+              - name: Terraform Plan
+                run: terraform -chdir=test plan
+  

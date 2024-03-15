@@ -15,13 +15,16 @@ terraform {
 provider "azurerm" {
   skip_provider_registration = true
   features {}
+  use_msi = true
 }
+
+provider "azuread" {}
 
 locals {
   environment                   = "dev1"
-  subscription_id               = "aaaaaaaa-bbbb-cccc-dddd-111111111111"
-  postfix                       = "sgc-project-dev-germanywestcentral"
-  resource_group_name           = "rg-sgc-project-dev-germanywestcentral"
+  subscription_id               = "fae73dff-ca04-4eed-905f-5d064a6f25b5"
+  postfix                       = "sgc-project-test-germanywestcentral"
+  resource_group_name           = "rg-sgc-project-test-germanywestcentral"
   dns_zone_resource_group       = "rg-sgc-project-shared-germanywestcentral"
   dns_region                    = "de"
   private_dns_zone_name         = "project.cloud.siedle.com"
@@ -43,4 +46,5 @@ module "keyvault" {
   dns_zone_resource_group       = "sgc-dns"
   private_dns_zone_name         = "cloud.siedle.com"
   key_vault_sku_pricing_tier    = "standard"
+  access_policies               = jsonencode([])
 }
