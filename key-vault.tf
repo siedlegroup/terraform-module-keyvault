@@ -46,19 +46,6 @@ resource "azurerm_key_vault" "main" {
     }
   }
 
-
-  dynamic "access_policy" {
-    for_each = local.service_principal_object_id != "" ? [1] : []
-    content {
-      certificate_permissions = local.self_permissions.certificate_permissions
-      key_permissions         = local.self_permissions.key_permissions
-      object_id               = local.service_principal_object_id
-      secret_permissions      = local.self_permissions.secret_permissions
-      storage_permissions     = local.self_permissions.storage_permissions
-      tenant_id               = data.azurerm_client_config.current.tenant_id
-    }
-  }
-
   dynamic "contact" {
     for_each = var.certificate_contacts
     content {
