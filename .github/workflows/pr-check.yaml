@@ -43,3 +43,28 @@
                   directory: ../.
                   framework: terraform 
   
+              - name: Show full Plan for Review
+                run: terraform show tfplan
+          
+              - name: Update Pull Request
+                if: (success() || failure()) && github.event_name == 'pull_request'
+                uses: actions/github-script@v6
+                with:
+                    github-token: ${{ secrets.GITHUB_TOKEN }}
+                    script: |
+                      const output = `#### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+          
+                      <details><summary>Run details</summary>
+          
+                      The plan was a ${{ steps.plan.outcome }} see the action for more details.
+          
+                      </details>
+          
+                      *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+          
+                      github.rest.issues.createComment({
+                        issue_number: context.issue.number,
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        body: output
+                      })
