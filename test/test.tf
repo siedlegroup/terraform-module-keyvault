@@ -15,6 +15,7 @@ terraform {
 provider "azurerm" {
   skip_provider_registration = true
   features {}
+  use_msi         = false
   subscription_id = "fae73dff-ca04-4eed-905f-5d064a6f25b5"
   tenant_id       = "2021092b-a5fe-4a9a-8b16-1876d8d5ccdf"
 }
@@ -47,4 +48,5 @@ module "keyvault" {
   dns_zone_resource_group       = "sgc-dns"
   private_dns_zone_name         = "cloud.siedle.com"
   key_vault_sku_pricing_tier    = "standard"
+  access_policies               = []
 }
