@@ -8,8 +8,8 @@ resource "random_string" "kv" {
 # Keyvault Creation - Default is "true"
 #-------------------------------------------------
 resource "azurerm_key_vault" "main" {
-  #checkov:skip=CKV_AZURE_110
-  #checkov:skip=CKV_AZURE_42
+  #checkov:skip=CKV_AZURE_110#currently no purge protection required
+  #checkov:skip=CKV_AZURE_42#currently no recovery enforcement required
   name                            = lower(format("%s%s", substr(var.key_vault_name, 0, 22), random_string.kv.result))
   location                        = var.location
   resource_group_name             = var.resource_group_name
@@ -110,20 +110,11 @@ resource "azurerm_monitor_diagnostic_setting" "diag" {
     content {
       category = log.value
       enabled  = true
-
-      retention_policy {
-        enabled = false
-        days    = 0
-      }
     }
   }
 
   metric {
     category = "AllMetrics"
     enabled  = true
-
-    retention_policy {
-      enabled = false
-    }
   }
 }
